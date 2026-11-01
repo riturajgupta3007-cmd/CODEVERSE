@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CODEVERSE – Build Beyond Limits | 3D Interactive Hackathon Discovery Platform</title>
+  <meta name="description" content="CODEVERSE is a modern, 3D interactive hackathon discovery and event platform built for developers, innovators, and students to discover, compete, and build beyond limits." />
+  
+  <!-- Google Fonts: Space Grotesk & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body>
+
+  <!-- ==========================================================================
+       NAVIGATION BAR
+       ========================================================================== -->
+  <header class="site-header" id="siteHeader">
+    <div class="container navbar">
+      <!-- Brand Identity -->
+      <a href="index.html" class="brand-logo" aria-label="CODEVERSE Home">
+        <div class="brand-icon-wrapper">
+          <i data-lucide="cpu" style="width:24px;height:24px;"></i>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">CODEVERSE</span>
+          <span class="brand-tagline">Build Beyond Limits</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link active">Home</a></li>
+          <li><a href="hackathons.html" class="nav-link">Hackathons</a></li>
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#tracks" class="nav-link">Tracks</a></li>
+          <li><a href="#schedule" class="nav-link">Schedule</a></li>
+          <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- Right Actions: Explore Hackathons + Auth -->
+      <div class="nav-actions">
+        <a href="hackathons.html" class="nav-hackathons-cta">
+          <i data-lucide="compass" style="width:16px;height:16px;"></i>
+          <span>Explore Hackathons</span>
+        </a>
+
+        <!-- Dynamic Auth Container (Populated by js/auth.js) -->
+        <div id="navbar-auth-container" style="display:flex;align-items:center;gap:12px;">
+          <a href="login.html" class="btn-text">Log In</a>
+          <a href="signup.html" class="btn-primary-sm">Sign Up</a>
+        </div>
+
+        <!-- Mobile Hamburger Toggle -->
+        <button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <i data-lucide="menu" style="width:24px;height:24px;"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer Menu -->
+    <div class="mobile-nav-menu" id="mobileNavMenu">
+      <a href="index.html" class="nav-link active">Home</a>
+      <a href="hackathons.html" class="nav-link">Hackathons Directory</a>
+      <a href="#about" class="nav-link">About Platform</a>
+      <a href="#tracks" class="nav-link">Challenge Tracks</a>
+      <a href="#schedule" class="nav-link">Event Schedule</a>
+      <a href="#prizes" class="nav-link">Prizes & Rewards</a>
+      <a href="#how-it-works" class="nav-link">How It Works</a>
+      <a href="#faq" class="nav-link">FAQ</a>
+      <a href="#contact" class="nav-link">Contact</a>
+      <div style="display:flex;gap:12px;margin-top:10px;">
+        <a href="hackathons.html" class="btn-primary" style="flex:1;">Explore Hackathons</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ==========================================================================
+         HERO SECTION (SECTION 5 & MANDATORY PS 02)
+         ========================================================================== -->
+    <section class="hero-section" id="hero">
+      <div class="container hero-grid">
+        <!-- Left Hero Content -->
+        <div class="hero-content reveal-on-scroll">
+          <h2 class="hero-subtitle">WELCOME TO CODEVERSE</h2>
+          
+          <h1 class="hero-title">
+            DISCOVER. BUILD.<br />
+            COMPETE. <span class="text-gradient">INNOVATE.</span>
+          </h1>
+
+          <p class="hero-description">
+            Your gateway to the world of hackathons. Discover opportunities, connect with innovators, showcase your skills, and turn bold ideas into production-ready reality.
+          </p>
+
+          <div class="hero-actions">
+            <a href="hackathons.html" class="btn-primary">
+              <i data-lucide="compass" style="width:18px;height:18px;"></i>
+              <span>EXPLORE HACKATHONS</span>
+            </a>
+            <a href="#how-it-works" class="btn-secondary">
+              <i data-lucide="play-circle" style="width:18px;height:18px;"></i>
+              <span>HOW IT WORKS</span>
+            </a>
+          </div>
+
+          <!-- Hero Metrics -->
+          <div class="hero-metrics">
+            <div class="metric-item">
+              <span class="metric-value">50+</span>
+              <span class="metric-label">Curated Hackathons</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-value">₹50L+</span>
+              <span class="metric-label">Prizes & Grants</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-value">12,000+</span>
+              <span class="metric-label">Active Builders</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right 3D Visual Experience (Three.js Abstract Tech Sphere) -->
+        <div class="hero-visual">
+          <div id="threejsHeroCanvas" class="threejs-canvas-wrapper" aria-label="3D Interactive Tech Visual"></div>
+
+          <!-- Floating Overlays for Enhanced Spatial Depth -->
+          <div class="floating-overlay-card floating-card-1 card-3d-tilt">
+            <div class="floating-icon-wrap">
+              <i data-lucide="zap" style="width:20px;height:20px;"></i>
+            </div>
+            <div class="floating-info">
+              <h4>Next-Gen Innovation</h4>
+              <p>48-Hour High Intensity Sprints</p>
+            </div>
+          </div>
+
+          <div class="floating-overlay-card floating-card-2 card-3d-tilt">
+            <div class="floating-icon-wrap" style="background:rgba(118,87,255,0.2);color:var(--primary-purple);">
+              <i data-lucide="award" style="width:20px;height:20px;"></i>
+            </div>
+            <div class="floating-info">
+              <h4>Verified Opportunities</h4>
+              <p>Direct VC & Mentorship Access</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         LIVE COUNTDOWN TIMER BANNER (MANDATORY BONUS FEATURE 1)
+         ========================================================================== -->
+    <section class="countdown-banner-section">
+      <div class="container">
+        <div class="countdown-bar reveal-on-scroll">
+          <div class="countdown-info">
+            <div class="countdown-icon-box">
+              <i data-lucide="timer" style="width:28px;height:28px;"></i>
+            </div>
+            <div>
+              <span style="font-size:0.75rem; color:var(--electric-blue); font-weight:700; text-transform:uppercase; letter-spacing:0.08em;">Upcoming Flagship Hackathon</span>
+              <h3>CODEVERSE Genesis 2026 Starts In</h3>
+              <p>Join 3,000+ developers competing in our premier hybrid innovation hackathon.</p>
+            </div>
+          </div>
+
+          <!-- Live Dynamic Countdown Grid -->
+          <div class="countdown-timer-grid" id="countdownGrid">
+            <div class="timer-box">
+              <span class="timer-num" id="timerDays">00</span>
+              <span class="timer-label">Days</span>
+            </div>
+            <span class="timer-colon">:</span>
+            <div class="timer-box">
+              <span class="timer-num" id="timerHours">00</span>
+              <span class="timer-label">Hours</span>
+            </div>
+            <span class="timer-colon">:</span>
+            <div class="timer-box">
+              <span class="timer-num" id="timerMinutes">00</span>
+              <span class="timer-label">Mins</span>
+            </div>
+            <span class="timer-colon">:</span>
+            <div class="timer-box">
+              <span class="timer-num" id="timerSeconds">00</span>
+              <span class="timer-label">Secs</span>
+            </div>
+          </div>
+
+          <a href="hackathon-details.html?id=codeverse-genesis-2026" class="btn-primary-sm">
+            <span>Register Now</span>
+            <i data-lucide="arrow-right" style="width:16px;height:16px;"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         ABOUT SECTION & 3 BENEFIT CARDS (SECTION 12 & MANDATORY PS 02)
+         ========================================================================== -->
+    <section class="section-padding" id="about">
+      <div class="container">
+        <div class="section-header reveal-on-scroll">
+          <div class="section-tag">
+            <i data-lucide="sparkles" style="width:14px;height:14px;"></i>
+            <span>About CODEVERSE</span>
+          </div>
+          <h2 class="section-title">Why Builders Choose CODEVERSE</h2>
+          <p class="section-subtitle">
+            CODEVERSE bridges the gap between passionate developers and world-class tech challenges. Whether you want to discover upcoming sprints, track active hackathons, or revisit winning solutions, everything is under one roof.
+          </p>
+        </div>
+
+        <div class="about-benefits-grid">
+          <!-- Benefit 1 -->
+          <div class="benefit-card card-3d-tilt reveal-on-scroll">
+            <div class="benefit-icon">
+              <i data-lucide="radar" style="width:28px;height:28px;"></i>
+            </div>
+            <h3>1. Discover Opportunities</h3>
+            <p>
+              Explore verified online, offline, and hybrid hackathons filterable by technical domains, prize pools, and registration deadlines with zero guesswork.
+            </p>
+          </div>
+
+          <!-- Benefit 2 -->
+          <div class="benefit-card card-3d-tilt reveal-on-scroll" style="transition-delay: 0.1s;">
+            <div class="benefit-icon" style="background:rgba(0, 217, 255, 0.12); color:var(--electric-blue);">
+              <i data-lucide="users" style="width:28px;height:28px;"></i>
+            </div>
+            <h3>2. Connect with Innovators</h3>
+            <p>
+              Assemble cross-functional dream teams, connect with seasoned industry mentors, and network with global tech leaders throughout your building journey.
+            </p>
+          </div>
+
+          <!-- Benefit 3 -->
+          <div class="benefit-card card-3d-tilt reveal-on-scroll" style="transition-delay: 0.2s;">
+            <div class="benefit-icon">
+              <i data-lucide="rocket" style="width:28px;height:28px;"></i>
+            </div>
+            <h3>3. Build Your Future</h3>
+            <p>
+              Transform weekend prototypes into funded startups, win prestigious cash grants, and earn official verified event badges that stand out on your developer profile.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         TRACKS / CHALLENGES SECTION (MANDATORY PS 02)
+         AI & Machine Learning, Web Development, Cybersecurity
+         ========================================================================== -->
+    <section class="section-padding" id="tracks" style="background: radial-gradient(circle at 50% 50%, rgba(16, 22, 43, 0.5) 0%, rgba(8, 11, 24, 0.95) 100%);">
+      <div class="container">
+        <div class="section-header reveal-on-scroll">
+          <div class="section-tag">
+            <i data-lucide="layers" style="width:14px;height:14px;"></i>
+            <span>Competition Tracks</span>
+          </div>
+          <h2 class="section-title">Pioneer Across Futuristic Tracks</h2>
+          <p class="section-subtitle">
+            Choose your battleground. CODEVERSE hackathons feature carefully designed problem statements addressing high-impact technical frontiers.
+          </p>
+        </div>
+
+        <div class="tracks-grid">
+          <!-- Track 1: AI & Machine Learning -->
+          <div class="track-card card-3d-tilt reveal-on-scroll">
+            <div class="track-header">
+              <div class="track-icon-wrapper">
+                <i data-lucide="brain-circuit" style="width:28px;height:28px;"></i>
+              </div>
+              <span class="track-number">01</span>
+            </div>
+            <h3 class="track-title">AI & Machine Learning</h3>
+            <p class="track-desc">
+              Design autonomous agent swarms, fine-tune multimodal LLMs, deploy edge inference models, and solve real-world cognitive bottlenecks with generative AI.
+            </p>
+            <div class="tech-tags">
+              <span class="tech-tag">Autonomous Agents</span>
+              <span class="tech-tag">PyTorch</span>
+              <span class="tech-tag">RAG</span>
+              <span class="tech-tag">Transformers</span>
+              <span class="tech-tag">Vector DBs</span>
+            </div>
+          </div>
+
+          <!-- Track 2: Web Development -->
+          <div class="track-card card-3d-tilt reveal-on-scroll" style="transition-delay: 0.1s;">
+            <div class="track-header">
+              <div class="track-icon-wrapper" style="background:rgba(118,87,255,0.15);color:var(--primary-purple);">
+                <i data-lucide="code-2" style="width:28px;height:28px;"></i>
+              </div>
+              <span class="track-number">02</span>
+            </div>
+            <h3 class="track-title">Next-Gen Web Development</h3>
+            <p class="track-desc">
+              Push boundaries with 3D immersive web graphics (Three.js/WebGPU), real-time collaborative state synchronization, and ultra-fast client-side architectures.
+            </p>
+            <div class="tech-tags">
+              <span class="tech-tag">Three.js</span>
+              <span class="tech-tag">WebSockets</span>
+              <span class="tech-tag">WASM</span>
+              <span class="tech-tag">Full Stack</span>
+              <span class="tech-tag">TypeScript</span>
+            </div>
+          </div>
+
+          <!-- Track 3: Cybersecurity -->
+          <div class="track-card card-3d-tilt reveal-on-scroll" style="transition-delay: 0.2s;">
+            <div class="track-header">
+              <div class="track-icon-wrapper">
+                <i data-lucide="shield-alert" style="width:28px;height:28px;"></i>
+              </div>
+              <span class="track-number">03</span>
+            </div>
+            <h3 class="track-title">Cybersecurity & Defense</h3>
+            <p class="track-desc">
+              Develop active intrusion detection mechanisms, automated zero-day triage microservices, zero-knowledge cryptographic primitives, and enterprise SIEM defenses.
+            </p>
+            <div class="tech-tags">
+              <span class="tech-tag">Zero-Trust</span>
+              <span class="tech-tag">Applied Crypto</span>
+              <span class="tech-tag">Rust</span>
+              <span class="tech-tag">Reverse Eng</span>
+              <span class="tech-tag">CTF Tools</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align:center;margin-top:40px;">
+          <a href="hackathons.html?category=all" class="btn-secondary">
+            <span>Browse All Hackathons by Domain</span>
+            <i data-lucide="arrow-right" style="width:16px;height:16px;"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         INTERACTIVE SCHEDULE TIMELINE (MANDATORY PS 02 + BONUS FEATURE 3)
+         ========================================================================== -->
+    <section class="section-padding" id="schedule">
+      <div class="container">
+        <div class="section-header reveal-on-scroll">
+          <div class="section-tag">
+            <i data-lucide="calendar" style="width:14px;height:14px;"></i>
+            <span>Event Roadmap</span>
+          </div>
+          <h2 class="section-title">Interactive 48-Hour Sprint Schedule</h2>
+          <p class="section-subtitle">
+            A battle-tested timeline designed to take your prototype from initial whiteboard brainstorm to investor-ready grand finale pitch.
+          </p>
+        </div>
+
+        <!-- Interactive Schedule Day Tabs -->
+        <div class="schedule-tabs-wrapper reveal-on-scroll">
+          <div class="schedule-tabs">
+            <button class="schedule-tab-btn active" data-day="day-1">Day 1: Kickoff & Build</button>
+            <button class="schedule-tab-btn" data-day="day-2">Day 2: Mid-Review & Sprint</button>
+            <button class="schedule-tab-btn" data-day="day-3">Day 3: Freeze & Demos</button>
+          </div>
+        </div>
+
+        <!-- Timeline Container -->
+        <div class="timeline-container">
+          <!-- Day 1 Schedule Items -->
+          <div class="schedule-day-content" data-day="day-1">
+            <div class="timeline-item reveal-on-scroll">
+              <div class="timeline-node"></div>
+              <div class="timeline-card">
+                <div class="timeline-meta">
+                  <span class="timeline-time"><i data-lucide="clock" style="width:14px;height:14px;"></i> 09:00 AM - 10:30 AM</span>
+                  <span class="timeline-badge">Keynote</span>
+                </div>
+                <h4 class="timeline-title">Grand Opening & Problem Statement Reveal</h4>
+                <p class="timeline-desc">Official welcome address by industry leaders, unveiling of secret bonus challenge bounties, and release of API compute credentials.</p>
+              </div>
+            </div>
+
+            <div class="timeline-item reveal-on-scroll">
+              <div class="timeline-node"></div>
+              <div class="timeline-card">
+                <div class="timeline-meta">
+                  <span class="timeline-time"><i data-lucide="clock" style="width:14px;height:14px;"></i> 11:00 AM</span>
+                  <span class="timeline-badge" style="background:rgba(16,185,129,0.2);color:#10B981;">Hacking Begins</span>
+                </div>
+                <h4 class="timeline-title">Sprint Kickoff & Mentor Matching</h4>
+                <p class="timeline-desc">Repositories initialized, initial wireframes reviewed with assigned engineering mentors, and sprint architecture finalized.</p>
+              </div>
+            </div>
+
+            <div class="timeline-item reveal-on-scroll">
+              <div class="timeline-node"></div>
+              <div class="timeline-card">
+                <div class="timeline-meta">
+                  <span class="timeline-time"><i data-lucide="clock" style="width:14px;height:14px;"></i> 05:00 PM - 06:30 PM</span>
+                  <span class="timeline-badge">Workshop</span>
+                </div>
+                <h4 class="timeline-title">Masterclass: Scaling High-Throughput AI Workflows</h4>
+                <p class="timeline-desc">Hands-on technical workshop focused on optimizing GPU inference, vector databases, and zero-latency WebSocket streaming.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Day 2 Schedule Items -->
+          <div class="schedule-day-content" data-day="day-2" style="display:none;">
+            <div class="timeline-item">
+              <div class="timeline-node"></div>
+              <div class="timeline-card">
+                <div class="timeline-meta">
+                  <span class="timeline-time"><i data-lucide="clock" style="width:14px;height:14px;"></i> 10:00 AM - 12:00 PM</span>
+                  <span class="timeline-badge">Milestone</span>
+                </div>
+                <h4 class="timeline-title">Checkpoint Evaluation & Architecture Review</h4>
+                <p class="timeline-desc">Review panel evaluates repository commits, functioning MVP microservices, and provides actionable course-correction feedback.</p>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-node"></div>
+              <div class="timeline-card">
+                <div class="timeline-meta">
+                  <span class="timeline-time"><i data-lucide="clock" style="width:14px;height:14px;"></i> 08:30 PM</span>
+                  <span class="timeline-badge" style="background:rgba(251,191,36,0.2);color:#FBBF24;">Community</span>
+                </div>
+                <h4 class="timeline-title">Late Night Trivia, Chill & Lightning Pitches</h4>
+                <p class="timeline-desc">Fun online mini-games, developer memes trivia, and optional 60-second lightning pitches with pizza & swag giveaways.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Day 3 Schedule Items -->
+          <div class="schedule-day-content" data-day="day-3" style="display:none;">
+            <div class="timeline-item">
+              <div class="timeline-node"></div>
+              <div class="timeline-card">
+                <div class="timeline-meta">
+                  <span class="timeline-time"><i data-lucide="clock" style="width:14px;height:14px;"></i> 02:00 PM</span>
+                  <span class="timeline-badge" style="background:rgba(239,68,68,0.2);color:#EF4444;">Hard Deadline</span>
+                </div>
+                <h4 class="timeline-title">Code Freeze & Final Submissions</h4>
+                <p class="timeline-desc">All code repositories locked, demo videos uploaded to CODEVERSE portal, and submission documentation submitted.</p>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-node"></div>
+              <div class="timeline-card">
+                <div class="timeline-meta">
+                  <span class="timeline-time"><i data-lucide="clock" style="width:14px;height:14px;"></i> 04:30 PM - 07:00 PM</span>
+                  <span class="timeline-badge">Grand Finale</span>
+                </div>
+                <h4 class="timeline-title">Live Demos, Jury Evaluation & Awards Ceremony</h4>
+                <p class="timeline-desc">Top 10 shortlisted finalist teams pitch live before the executive jury panel, followed by the grand prize distribution ceremony.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         PRIZES & REWARDS SECTION (MANDATORY PS 02)
+         ========================================================================== -->
+    <section class="section-padding" id="prizes">
+      <div class="container">
+        <div class="section-header reveal-on-scroll">
+          <div class="section-tag">
+            <i data-lucide="trophy" style="width:14px;height:14px;"></i>
+            <span>Prizes & Bounty Pool</span>
+          </div>
+          <h2 class="section-title">Compete for ₹25,00,000 in Rewards</h2>
+          <p class="section-subtitle">
+            We celebrate and empower top builders with life-changing cash grants, hardware gadgets, venture accelerator fast-tracks, and compute credits.
+          </p>
+        </div>
+
+        <div class="prizes-grid">
+          <!-- 2nd Prize -->
+          <div class="prize-card card-3d-tilt reveal-on-scroll">
+            <span class="prize-rank-pill silver">2nd Place</span>
+            <div class="prize-icon-circle">
+              <i data-lucide="medal" style="width:40px;height:40px;color:#CBD5E1;"></i>
+            </div>
+            <div class="prize-amount">₹6,00,000</div>
+            <h3 class="prize-title">First Runner-Up</h3>
+            <p class="prize-perks">
+              Silver Plaque + High-End Developer Tech Gadgets + 1-Year Pro Software Subscriptions + Venture Matchmaking
+            </p>
+          </div>
+
+          <!-- 1st Prize (Grand Champion) -->
+          <div class="prize-card champion card-3d-tilt reveal-on-scroll">
+            <span class="prize-rank-pill gold">Grand Champion</span>
+            <div class="prize-icon-circle" style="background:rgba(251,191,36,0.12);">
+              <i data-lucide="crown" style="width:44px;height:44px;color:#FBBF24;"></i>
+            </div>
+            <div class="prize-amount text-gradient">₹10,00,000</div>
+            <h3 class="prize-title">Grand Winner Award</h3>
+            <p class="prize-perks">
+              Official Trophy + Direct Fast-Track VC Pitch + $10,000 Cloud Compute Credits + Exclusive Founder Swag Pack
+            </p>
+          </div>
+
+          <!-- 3rd Prize -->
+          <div class="prize-card card-3d-tilt reveal-on-scroll">
+            <span class="prize-rank-pill bronze">3rd Place</span>
+            <div class="prize-icon-circle">
+              <i data-lucide="award" style="width:40px;height:40px;color:#FB923C;"></i>
+            </div>
+            <div class="prize-amount">₹4,00,000</div>
+            <h3 class="prize-title">Second Runner-Up</h3>
+            <p class="prize-perks">
+              Bronze Plaque + Mentorship Cohort Access + Hacker Hardware Kits + Verified Certificate of Distinction
+            </p>
+          </div>
+        </div>
+
+        <p class="prize-disclaimer">
+          * Prize distribution amounts shown above reflect verified competition allocations for CODEVERSE Genesis 2026. Sample prizes for demo purposes are clearly indicated where applicable.
+        </p>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         HOW IT WORKS (SECTION 13)
+         ========================================================================== -->
+    <section class="section-padding" id="how-it-works" style="background: rgba(16, 22, 43, 0.4);">
+      <div class="container">
+        <div class="section-header reveal-on-scroll">
+          <div class="section-tag">
+            <i data-lucide="git-merge" style="width:14px;height:14px;"></i>
+            <span>Participant Journey</span>
+          </div>
+          <h2 class="section-title">How CODEVERSE Works in 3 Steps</h2>
+          <p class="section-subtitle">
+            From discovering cutting-edge hackathons to deploying award-winning software, our workflow is built for seamless developer speed.
+          </p>
+        </div>
+
+        <div class="steps-grid">
+          <!-- Step 1 -->
+          <div class="step-card card-3d-tilt reveal-on-scroll">
+            <div class="step-number-wrap">1</div>
+            <h3>STEP 1 – DISCOVER</h3>
+            <p>
+              Explore upcoming, ongoing, and completed hackathons using powerful domain filters, format selectors, and search keywords tailored to your skillset.
+            </p>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="step-card card-3d-tilt reveal-on-scroll" style="transition-delay: 0.1s;">
+            <div class="step-number-wrap">2</div>
+            <h3>STEP 2 – REGISTER</h3>
+            <p>
+              Apply individually or assemble your squad with frictionless 1-click registration, instant holographic ticket generation, and team management tools.
+            </p>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="step-card card-3d-tilt reveal-on-scroll" style="transition-delay: 0.2s;">
+            <div class="step-number-wrap">3</div>
+            <h3>STEP 3 – BUILD & COMPETE</h3>
+            <p>
+              Collaborate in 48-hour sprints, connect with technical mentors, push code to GitHub, pitch live to industry juries, and claim prize rewards.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SPONSORS & PARTNERS (MANDATORY PS 02)
+         ========================================================================== -->
+    <section class="section-padding" id="sponsors">
+      <div class="container">
+        <div class="section-header reveal-on-scroll">
+          <div class="section-tag">
+            <i data-lucide="handshake" style="width:14px;height:14px;"></i>
+            <span>Ecosystem Backers</span>
+          </div>
+          <h2 class="section-title">Backed by Industry Leaders</h2>
+          <p class="section-subtitle">
+            Proudly supported by visionary technology innovators and cloud infrastructure providers empowering the next generation of engineers.
+          </p>
+        </div>
+
+        <div class="sponsors-grid reveal-on-scroll">
+          <div class="sponsor-card">
+            <div class="sponsor-logo-box text-gradient">APEX CLOUD</div>
+            <span class="sponsor-tier">Title Sponsor</span>
+          </div>
+
+          <div class="sponsor-card">
+            <div class="sponsor-logo-box text-gradient-blue">NEURALCORE</div>
+            <span class="sponsor-tier">Platinum Partner</span>
+          </div>
+
+          <div class="sponsor-card">
+            <div class="sponsor-logo-box">FORTRESS CYBER</div>
+            <span class="sponsor-tier">Gold Partner</span>
+          </div>
+
+          <div class="sponsor-card">
+            <div class="sponsor-logo-box">DEVSTREAM</div>
+            <span class="sponsor-tier">Community Partner</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         FAQ SECTION (SECTION 18 - 8 QUESTIONS ACCORDION)
+         ========================================================================== -->
+    <section class="section-padding" id="faq">
+      <div class="container">
+        <div class="section-header reveal-on-scroll">
+          <div class="section-tag">
+            <i data-lucide="help-circle" style="width:14px;height:14px;"></i>
+            <span>Questions & Answers</span>
+          </div>
+          <h2 class="section-title">Frequently Asked Questions</h2>
+          <p class="section-subtitle">
+            Find answers to commonly asked questions about discovering, participating, and registering for events on CODEVERSE.
+          </p>
+        </div>
+
+        <div class="faq-accordion-wrap reveal-on-scroll">
+          <!-- FAQ 1 -->
+          <div class="faq-item">
+            <button class="faq-question-btn" aria-expanded="false">
+              <span>1. What is CODEVERSE?</span>
+              <i data-lucide="chevron-down" class="faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+              <p>CODEVERSE is a modern, 3D interactive hackathon discovery and event platform where developers, students, and innovators can discover upcoming competitions, follow ongoing hacking sprints, inspect completed hackathons with winning code showcases, and register seamlessly.</p>
+            </div>
+          </div>
+
+          <!-- FAQ 2 -->
+          <div class="faq-item">
+            <button class="faq-question-btn" aria-expanded="false">
+              <span>2. How do I discover hackathons?</span>
+              <i data-lucide="chevron-down" class="faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+              <p>Navigate to our Hackathons Directory page. You can filter events by status (Upcoming, Ongoing, Completed), formats (Online, Offline, Hybrid), technology categories (AI/ML, Web, Cybersecurity, Cloud, Blockchain), and sort by date or popularity.</p>
+            </div>
+          </div>
+
+          <!-- FAQ 3 -->
+          <div class="faq-item">
+            <button class="faq-question-btn" aria-expanded="false">
+              <span>3. Can I explore hackathons without creating an account?</span>
+              <i data-lucide="chevron-down" class="faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+              <p>Yes, absolutely! The entire platform and hackathons directory is 100% open for exploration. No login is required to browse event schedules, challenge tracks, prize breakdowns, and sponsor details.</p>
+            </div>
+          </div>
+
+          <!-- FAQ 4 -->
+          <div class="faq-item">
+            <button class="faq-question-btn" aria-expanded="false">
+              <span>4. How do I register for a hackathon?</span>
+              <i data-lucide="chevron-down" class="faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+              <p>Click on any upcoming hackathon card or detail page and select "Register Now". You'll complete a brief registration form providing team details, contact information, and track preferences, receiving an instant holographic verification pass with a unique Registration ID.</p>
+            </div>
+          </div>
+
+          <!-- FAQ 5 -->
+          <div class="faq-item">
+            <button class="faq-question-btn" aria-expanded="false">
+              <span>5. Can I save or bookmark hackathons?</span>
+              <i data-lucide="chevron-down" class="faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+              <p>Yes! Simply click the bookmark icon on any hackathon card. Saved hackathons are synchronized directly with your CODEVERSE user profile so you can revisit them anytime before the registration deadline.</p>
+            </div>
+          </div>
+
+          <!-- FAQ 6 -->
+          <div class="faq-item">
+            <button class="faq-question-btn" aria-expanded="false">
+              <span>6. Can I participate in multiple hackathons simultaneously?</span>
+              <i data-lucide="chevron-down" class="faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+              <p>Yes. As long as your schedule permits, you may register and participate in multiple hackathons listed on the platform. All your confirmed participation tickets are organized inside your "My Registrations" dashboard.</p>
+            </div>
+          </div>
+
+          <!-- FAQ 7 -->
+          <div class="faq-item">
+            <button class="faq-question-btn" aria-expanded="false">
+              <span>7. How can I find completed hackathons and winners?</span>
+              <i data-lucide="chevron-down" class="faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+              <p>Visit the Hackathons Directory and switch to the "Completed" tab. Clicking on any completed hackathon reveals full winner information, project descriptions, team rosters, and links to open-source project repositories.</p>
+            </div>
+          </div>
+
+          <!-- FAQ 8 -->
+          <div class="faq-item">
+            <button class="faq-question-btn" aria-expanded="false">
+              <span>8. How do I contact the platform organizers?</span>
+              <i data-lucide="chevron-down" class="faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+              <p>You can reach our team via email at support@codeverse.dev or join our official community Discord. For specific event questions, each hackathon details page also lists the direct verified organizer email.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         CALL TO ACTION SECTION (MANDATORY PS 02)
+         ========================================================================== -->
+    <section class="section-padding" style="padding-bottom: 120px;">
+      <div class="container">
+        <div class="cta-box reveal-on-scroll">
+          <h2>Ready to Build Beyond Limits?</h2>
+          <p>
+            Join thousands of developers competing in the world’s most exciting hackathons. Discover your next challenge or register your squad today.
+          </p>
+          <div class="cta-actions">
+            <a href="hackathons.html" class="btn-primary">
+              <i data-lucide="compass"></i>
+              <span>Explore All Hackathons</span>
+            </a>
+            <a href="signup.html" class="btn-secondary">
+              <i data-lucide="user-plus"></i>
+              <span>Create Free Account</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==========================================================================
+       FOOTER (SECTION 19)
+       ========================================================================== -->
+  <footer class="site-footer" id="contact">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Brand Summary -->
+        <div class="footer-brand">
+          <a href="index.html" class="brand-logo">
+            <div class="brand-icon-wrapper">
+              <i data-lucide="cpu" style="width:24px;height:24px;"></i>
+            </div>
+            <div class="brand-text">
+              <span class="brand-name">CODEVERSE</span>
+              <span class="brand-tagline">Build Beyond Limits</span>
+            </div>
+          </a>
+          <p>
+            The premium 3D interactive hackathon discovery and event platform empowering developers, designers, and students worldwide.
+          </p>
+          <div class="footer-socials">
+            <a href="https://github.com" target="_blank" class="social-link" aria-label="GitHub"><i data-lucide="github" style="width:18px;height:18px;"></i></a>
+            <a href="https://twitter.com" target="_blank" class="social-link" aria-label="Twitter"><i data-lucide="twitter" style="width:18px;height:18px;"></i></a>
+            <a href="https://discord.com" target="_blank" class="social-link" aria-label="Discord"><i data-lucide="message-square" style="width:18px;height:18px;"></i></a>
+            <a href="https://linkedin.com" target="_blank" class="social-link" aria-label="LinkedIn"><i data-lucide="linkedin" style="width:18px;height:18px;"></i></a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="hackathons.html">Hackathons Directory</a></li>
+            <li><a href="#about">About CODEVERSE</a></li>
+            <li><a href="#tracks">Tracks & Challenges</a></li>
+            <li><a href="#schedule">Event Schedule</a></li>
+          </ul>
+        </div>
+
+        <!-- Hackathon Categories -->
+        <div class="footer-col">
+          <h4>Categories</h4>
+          <ul class="footer-links">
+            <li><a href="hackathons.html?category=AI%20%26%20Machine%20Learning">AI & Machine Learning</a></li>
+            <li><a href="hackathons.html?category=Web%20Development">Web Development</a></li>
+            <li><a href="hackathons.html?category=Cybersecurity">Cybersecurity</a></li>
+            <li><a href="hackathons.html?category=Cloud%20Computing">Cloud & DevOps</a></li>
+            <li><a href="hackathons.html?category=Blockchain">Blockchain & Web3</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact & Legal -->
+        <div class="footer-col">
+          <h4>Platform</h4>
+          <ul class="footer-links">
+            <li><a href="admin.html">Admin Portal</a></li>
+            <li><a href="login.html">Developer Login</a></li>
+            <li><a href="signup.html">Join Platform</a></li>
+            <li><a href="#faq">Help & FAQs</a></li>
+            <li><span style="font-size:0.85rem;color:var(--text-muted);">contact@codeverse.dev</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          © 2026 CODEVERSE. Developed for GDG MMMUT Prompt 2 Pixel Round 2 (PS 02 – Tech Event / Hackathon Landing Page).
+        </div>
+        <div style="display:flex;gap:18px;">
+          <a href="#" style="color:var(--text-dim);font-size:0.8rem;">Privacy Policy</a>
+          <a href="#" style="color:var(--text-dim);font-size:0.8rem;">Terms of Service</a>
+          <a href="#" style="color:var(--text-dim);font-size:0.8rem;">Code of Conduct</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <!-- 1. Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- 2. Three.js CDN for 3D Visuals -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- 3. Supabase JS Client CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- 4. Canvas Confetti CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+  <!-- Application Modules -->
+  <script src="js/avatars.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/three-hero.js"></script>
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hackathon Registration | CODEVERSE</title>
+  <meta name="description" content="Register your team or apply individually for hackathons on the CODEVERSE platform." />
+
+  <!-- Google Fonts: Space Grotesk & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/auth.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header scrolled" id="siteHeader">
+    <div class="container navbar">
+      <a href="index.html" class="brand-logo" aria-label="CODEVERSE Home">
+        <div class="brand-icon-wrapper">
+          <i data-lucide="cpu" style="width:24px;height:24px;"></i>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">CODEVERSE</span>
+          <span class="brand-tagline">Build Beyond Limits</span>
+        </div>
+      </a>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="hackathons.html" class="nav-link">Hackathons</a></li>
+          <li><a href="my-registrations.html" class="nav-link">My Registrations</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="hackathons.html" class="btn-text">
+          <i data-lucide="arrow-left" style="width:16px;height:16px;"></i>
+          <span>Directory</span>
+        </a>
+        <div id="navbar-auth-container"></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="auth-page-wrapper" style="padding-top: calc(var(--header-height) + 30px);">
+    <div class="auth-card card-3d-tilt" style="max-width: 680px;">
+      <!-- Selected Event Header Pill -->
+      <div style="display:flex;align-items:center;gap:16px;background:rgba(8,11,24,0.7);border:1px solid var(--border-subtle);border-radius:var(--radius-md);padding:14px;margin-bottom:28px;">
+        <img id="regEventBanner" src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=300&q=80" alt="Hackathon" style="width:68px;height:68px;border-radius:8px;object-fit:cover;" />
+        <div>
+          <span style="font-size:0.75rem;color:var(--electric-blue);text-transform:uppercase;font-weight:700;">Selected Opportunity</span>
+          <h2 id="regEventName" style="font-size:1.3rem;line-height:1.2;margin:2px 0;">CODEVERSE Genesis 2026</h2>
+          <div style="font-size:0.8rem;color:var(--text-muted);">
+            By <span id="regEventOrganizer">CODEVERSE Alliance</span> • Deadline: <span id="regEventDeadline">Nov 20, 2026</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="auth-header" style="text-align:left;margin-bottom:24px;">
+        <h1 style="font-size:1.8rem;">Official Registration Form</h1>
+        <p>Complete your applicant and team details to secure verified entry.</p>
+      </div>
+
+      <form id="eventRegistrationForm">
+        <!-- Personal Info -->
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="regFullName">Full Name *</label>
+            <input type="text" id="regFullName" class="form-input no-icon" placeholder="Alex Chen" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="regEmail">Email Address *</label>
+            <input type="email" id="regEmail" class="form-input no-icon" placeholder="alex.chen@example.com" required />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="regPhone">Phone Number *</label>
+            <input type="tel" id="regPhone" class="form-input no-icon" placeholder="+91 98765 43210" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="regCollege">College / Organization *</label>
+            <input type="text" id="regCollege" class="form-input no-icon" placeholder="e.g. Stanford / IIT / University" required />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="regDepartment">Department / Major *</label>
+            <input type="text" id="regDepartment" class="form-input no-icon" placeholder="e.g. Computer Science" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="regYear">Year of Study *</label>
+            <select id="regYear" class="form-select no-icon" required>
+              <option value="1st Year">1st Year Undergraduate</option>
+              <option value="2nd Year">2nd Year Undergraduate</option>
+              <option value="3rd Year" selected>3rd Year Undergraduate</option>
+              <option value="4th Year">4th Year Undergraduate</option>
+              <option value="Postgraduate / Masters">Postgraduate / Masters</option>
+              <option value="Professional / Industry">Working Professional</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Team & Track Info -->
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="regTeamName">Team Name *</label>
+            <input type="text" id="regTeamName" class="form-input no-icon" placeholder="e.g. NeuralSynthetics" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="regTeamSize">Team Size *</label>
+            <select id="regTeamSize" class="form-select no-icon" required>
+              <option value="1">1 Member (Solo Hacker)</option>
+              <option value="2">2 Members</option>
+              <option value="3" selected>3 Members</option>
+              <option value="4">4 Members (Maximum)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="regTrackSelect">Preferred Challenge Track *</label>
+          <select id="regTrackSelect" class="form-select no-icon" required>
+            <!-- Injected by js/registration.js -->
+          </select>
+        </div>
+
+        <!-- Links -->
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="regGithub">GitHub Profile URL *</label>
+            <input type="url" id="regGithub" class="form-input no-icon" placeholder="https://github.com/username" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="regPortfolio">Portfolio / Devpost (Optional)</label>
+            <input type="url" id="regPortfolio" class="form-input no-icon" placeholder="https://yourportfolio.dev" />
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom:28px;">
+          <label class="checkbox-label">
+            <input type="checkbox" id="regTermsCheckbox" required />
+            <span style="font-size:0.85rem;">I certify that the information provided is accurate and agree to uphold the CODEVERSE Code of Conduct.</span>
+          </label>
+        </div>
+
+        <button type="submit" class="btn-primary" id="btnSubmitReg" style="width:100%;padding:16px;font-size:1.05rem;">
+          <i data-lucide="check-circle"></i>
+          <span>Confirm & Issue Hackathon Ticket</span>
+        </button>
+      </form>
+    </div>
+  </main>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/registration.js"></script>
+</body>
+</html>

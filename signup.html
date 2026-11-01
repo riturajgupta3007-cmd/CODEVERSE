@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Join CODEVERSE | Create Developer Account</title>
+  <meta name="description" content="Create a free CODEVERSE account to register for hackathons, form squads, and showcase your developer portfolio." />
+
+  <!-- Google Fonts: Space Grotesk & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/auth.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body>
+
+  <!-- Minimal Header -->
+  <header class="site-header scrolled">
+    <div class="container navbar">
+      <a href="index.html" class="brand-logo" aria-label="CODEVERSE Home">
+        <div class="brand-icon-wrapper">
+          <i data-lucide="cpu" style="width:24px;height:24px;"></i>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">CODEVERSE</span>
+          <span class="brand-tagline">Build Beyond Limits</span>
+        </div>
+      </a>
+
+      <div class="nav-actions">
+        <a href="login.html" class="btn-text">
+          <span>Already registered? Log In</span>
+          <i data-lucide="arrow-right" style="width:16px;height:16px;"></i>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="auth-page-wrapper">
+    <div class="auth-card card-3d-tilt">
+      <div class="auth-header">
+        <h1>Create Your Account</h1>
+        <p>Join the next generation of builders on CODEVERSE.</p>
+      </div>
+
+      <form id="signupForm">
+        <div class="form-group">
+          <label for="signupFullName" class="form-label">Full Name</label>
+          <div class="form-input-wrapper">
+            <i data-lucide="user" class="input-icon"></i>
+            <input type="text" id="signupFullName" class="form-input" placeholder="e.g. Maya Patel" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="signupEmail" class="form-label">Email Address</label>
+          <div class="form-input-wrapper">
+            <i data-lucide="mail" class="input-icon"></i>
+            <input type="email" id="signupEmail" class="form-input" placeholder="maya.patel@example.com" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="signupPassword" class="form-label">Password</label>
+          <div class="form-input-wrapper">
+            <i data-lucide="lock" class="input-icon"></i>
+            <input type="password" id="signupPassword" class="form-input" placeholder="At least 6 characters" minlength="6" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="signupConfirmPassword" class="form-label">Confirm Password</label>
+          <div class="form-input-wrapper">
+            <i data-lucide="shield-check" class="input-icon"></i>
+            <input type="password" id="signupConfirmPassword" class="form-input" placeholder="Re-enter password" required />
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom:24px;">
+          <label class="checkbox-label">
+            <input type="checkbox" id="termsCheckbox" required />
+            <span style="font-size:0.85rem;">I accept the CODEVERSE <a href="#" style="color:var(--electric-blue);">Terms of Service</a> & <a href="#" style="color:var(--electric-blue);">Privacy Policy</a></span>
+          </label>
+        </div>
+
+        <button type="submit" class="btn-primary btn-auth-submit" id="btnSignupSubmit">
+          <span>Create Free Account</span>
+          <i data-lucide="arrow-right" style="width:18px;height:18px;"></i>
+        </button>
+      </form>
+
+      <div class="auth-footer">
+        Already have an account? <a href="login.html">Log In</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/data.js"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = document.getElementById("signupForm");
+      if (form) {
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const fullName = document.getElementById("signupFullName").value.trim();
+          const email = document.getElementById("signupEmail").value.trim();
+          const password = document.getElementById("signupPassword").value;
+          const confirmPassword = document.getElementById("signupConfirmPassword").value;
+          const terms = document.getElementById("termsCheckbox").checked;
+
+          if (password !== confirmPassword) {
+            window.showToast("Passwords do not match.", "error");
+            return;
+          }
+
+          if (!terms) {
+            window.showToast("Please agree to the Terms of Service.", "error");
+            return;
+          }
+
+          const submitBtn = document.getElementById("btnSignupSubmit");
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = `<span>Creating Account...</span>`;
+
+          const result = await window.Auth.signup(fullName, email, password);
+          if (result.success) {
+            window.showToast("Account created successfully! Welcome to CODEVERSE.", "success");
+            setTimeout(() => {
+              window.location.href = "profile.html";
+            }, 800);
+          } else {
+            window.showToast(result.error || "Signup error.", "error");
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = `<span>Create Free Account</span> <i data-lucide="arrow-right"></i>`;
+            if (window.lucide) window.lucide.createIcons();
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>

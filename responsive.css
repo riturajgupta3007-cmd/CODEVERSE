@@ -1,0 +1,295 @@
+/* ==========================================================================
+   CODEVERSE - COMPREHENSIVE RESPONSIVE DESIGN
+   Tested Breakpoints: 360px, 375px, 390px, 430px, 768px, 1024px, 1366px, 1920px
+   ========================================================================== */
+
+/* Large Desktops / 1920px */
+@media (min-width: 1440px) {
+  :root {
+    --max-width: 1360px;
+  }
+}
+
+/* Standard Laptops & Desktops / 1024px - 1280px */
+@media (max-width: 1200px) {
+  .hero-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+  }
+
+  .tracks-grid,
+  .prizes-grid,
+  .about-benefits-grid,
+  .steps-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .sponsors-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Tablets / 768px - 1023px */
+@media (max-width: 1023px) {
+  :root {
+    --header-height: 70px;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .mobile-nav-toggle {
+    display: block;
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .hero-content {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .hero-actions {
+    justify-content: center;
+  }
+
+  .hero-metrics {
+    justify-content: center;
+  }
+
+  .hero-visual {
+    height: 420px;
+  }
+
+  .tracks-grid,
+  .about-benefits-grid,
+  .steps-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .prizes-grid {
+    grid-template-columns: 1fr;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .prize-card.champion {
+    transform: none;
+  }
+
+  .sponsors-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+  }
+
+  .details-layout-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .search-main-row {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .admin-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile Devices / 430px, 390px, 375px, 360px */
+@media (max-width: 767px) {
+  .container {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .section-padding {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+
+  .hero-title {
+    font-size: 2.3rem;
+  }
+
+  .hero-description {
+    font-size: 1rem;
+  }
+
+  .hero-metrics {
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .metric-value {
+    font-size: 1.5rem;
+  }
+
+  .hero-visual {
+    height: 340px;
+  }
+
+  .floating-card-1 {
+    bottom: 10px;
+    left: 0;
+  }
+
+  .floating-card-2 {
+    top: 10px;
+    right: 0;
+  }
+
+  .countdown-bar {
+    padding: 20px;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .countdown-info {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .countdown-timer-grid {
+    gap: 8px;
+  }
+
+  .timer-box {
+    min-width: 54px;
+    padding: 8px 10px;
+  }
+
+  .timer-num {
+    font-size: 1.4rem;
+  }
+
+  .tracks-grid,
+  .about-benefits-grid,
+  .steps-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hackathons-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .search-main-row {
+    grid-template-columns: 1fr;
+  }
+
+  .category-tabs-nav {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .details-hero-overlay {
+    padding: 20px;
+  }
+
+  .details-title {
+    font-size: 1.8rem;
+  }
+
+  .details-section-box {
+    padding: 24px 18px;
+  }
+
+  .details-sidebar-card {
+    padding: 22px 18px;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .auth-card {
+    padding: 30px 20px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-header-card {
+    padding: 24px 20px;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .profile-user-summary {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .profile-stats-grid {
+    width: 100%;
+    justify-content: space-around;
+  }
+
+  .registration-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .admin-stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-table-container {
+    padding: 14px;
+  }
+
+  .ticket-body {
+    padding: 20px;
+  }
+
+  .ticket-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Small Screens / 360px & 375px */
+@media (max-width: 375px) {
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .timer-box {
+    min-width: 46px;
+    padding: 6px 8px;
+  }
+
+  .timer-num {
+    font-size: 1.2rem;
+  }
+
+  .card-top-badges {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hackathons Directory | CODEVERSE – Discover & Compete</title>
+  <meta name="description" content="Discover upcoming, ongoing, and completed hackathons. Filter by technical domains, formats, and prize pools on CODEVERSE." />
+
+  <!-- Google Fonts: Space Grotesk & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/hackathons.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body>
+
+  <!-- ==========================================================================
+       NAVIGATION BAR
+       ========================================================================== -->
+  <header class="site-header scrolled" id="siteHeader">
+    <div class="container navbar">
+      <!-- Brand Identity -->
+      <a href="index.html" class="brand-logo" aria-label="CODEVERSE Home">
+        <div class="brand-icon-wrapper">
+          <i data-lucide="cpu" style="width:24px;height:24px;"></i>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">CODEVERSE</span>
+          <span class="brand-tagline">Build Beyond Limits</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="hackathons.html" class="nav-link active">Hackathons</a></li>
+          <li><a href="index.html#about" class="nav-link">About</a></li>
+          <li><a href="index.html#how-it-works" class="nav-link">How It Works</a></li>
+          <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- Right Actions: Auth + Explore CTA -->
+      <div class="nav-actions">
+        <a href="hackathons.html" class="nav-hackathons-cta" style="background:var(--primary-purple);box-shadow:0 0 16px var(--primary-purple-glow);">
+          <i data-lucide="compass" style="width:16px;height:16px;"></i>
+          <span>Directory Active</span>
+        </a>
+
+        <!-- Dynamic Auth Container -->
+        <div id="navbar-auth-container" style="display:flex;align-items:center;gap:12px;">
+          <a href="login.html" class="btn-text">Log In</a>
+          <a href="signup.html" class="btn-primary-sm">Sign Up</a>
+        </div>
+
+        <!-- Mobile Hamburger Toggle -->
+        <button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <i data-lucide="menu" style="width:24px;height:24px;"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer Menu -->
+    <div class="mobile-nav-menu" id="mobileNavMenu">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="hackathons.html" class="nav-link active">Hackathons Directory</a>
+      <a href="index.html#about" class="nav-link">About Platform</a>
+      <a href="index.html#how-it-works" class="nav-link">How It Works</a>
+      <a href="index.html#contact" class="nav-link">Contact</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Directory Hero Header -->
+    <section class="directory-hero">
+      <div class="container directory-hero-content reveal-on-scroll">
+        <div class="section-tag">
+          <i data-lucide="terminal" style="width:14px;height:14px;"></i>
+          <span>Live Innovation Arena</span>
+        </div>
+        <h1>Explore & Discover Hackathons</h1>
+        <p>
+          Find your next breakthrough opportunity. Explore upcoming sprints, view ongoing challenges, and learn from past winning project repositories.
+        </p>
+
+        <!-- Category Tabs (ALL | UPCOMING | ONGOING | COMPLETED) -->
+        <div class="category-tabs-container">
+          <div class="category-tabs-nav" role="tablist">
+            <button class="tab-btn active" data-status="all" role="tab">
+              <i data-lucide="grid"></i>
+              <span>All Hackathons</span>
+            </button>
+            <button class="tab-btn" data-status="upcoming" role="tab">
+              <i data-lucide="calendar"></i>
+              <span>Upcoming</span>
+            </button>
+            <button class="tab-btn" data-status="ongoing" role="tab">
+              <i data-lucide="activity"></i>
+              <span>Ongoing Now</span>
+            </button>
+            <button class="tab-btn" data-status="completed" role="tab">
+              <i data-lucide="check-circle-2"></i>
+              <span>Completed</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Search & Filters Container -->
+    <section class="section-padding" style="padding-top: 10px;">
+      <div class="container">
+        <div class="search-filter-box reveal-on-scroll">
+          <div class="search-main-row">
+            <!-- Search Input -->
+            <div class="search-input-wrap">
+              <i data-lucide="search"></i>
+              <input type="text" id="searchInput" class="search-input" placeholder="Search by name, organizer, technology, location..." autocomplete="off" />
+            </div>
+
+            <!-- Format Filter -->
+            <div>
+              <select id="formatFilter" class="filter-select" aria-label="Filter by Event Format">
+                <option value="all">All Formats (Online / Offline / Hybrid)</option>
+                <option value="online">Online Only</option>
+                <option value="offline">Offline / On-Campus</option>
+                <option value="hybrid">Hybrid</option>
+              </select>
+            </div>
+
+            <!-- Sort By -->
+            <div>
+              <select id="sortFilter" class="filter-select" aria-label="Sort Hackathons">
+                <option value="starting-soon">Sort: Starting Soon</option>
+                <option value="deadline">Sort: Registration Deadline</option>
+                <option value="popular">Sort: Most Popular</option>
+                <option value="recently-added">Sort: Recently Added</option>
+              </select>
+            </div>
+
+            <!-- Clear Filters Button -->
+            <div>
+              <button class="btn-clear-filters" id="clearFiltersBtn">
+                <i data-lucide="rotate-ccw" style="width:16px;height:16px;"></i>
+                <span>Clear Filters</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Category Filter Pills (AI, Web, Cyber, Cloud, Blockchain, Apps, Open Source) -->
+          <div class="category-pills-row">
+            <button class="cat-pill active" data-category="all">All Domains</button>
+            <button class="cat-pill" data-category="AI & Machine Learning">AI & Machine Learning</button>
+            <button class="cat-pill" data-category="Web Development">Web Development</button>
+            <button class="cat-pill" data-category="Cybersecurity">Cybersecurity</button>
+            <button class="cat-pill" data-category="Blockchain">Blockchain & Web3</button>
+            <button class="cat-pill" data-category="Cloud Computing">Cloud & DevOps</button>
+            <button class="cat-pill" data-category="App Development">App Development</button>
+            <button class="cat-pill" data-category="Open Source">Open Source</button>
+          </div>
+        </div>
+
+        <!-- Results Info Bar -->
+        <div class="results-info-bar">
+          <div class="results-count" id="resultsCount">Showing <span>10</span> hackathons</div>
+          <div style="font-size:0.8rem; color:var(--text-dim);">
+            <i data-lucide="shield-check" style="width:14px;height:14px;display:inline-block;vertical-align:middle;"></i> All listings verified by CODEVERSE Council
+          </div>
+        </div>
+
+        <!-- Hackathons Grid (Populated dynamically by js/hackathons.js) -->
+        <div class="hackathons-grid" id="hackathonsGrid">
+          <!-- Cards injected via JavaScript -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="brand-logo">
+            <div class="brand-icon-wrapper">
+              <i data-lucide="cpu" style="width:24px;height:24px;"></i>
+            </div>
+            <div class="brand-text">
+              <span class="brand-name">CODEVERSE</span>
+              <span class="brand-tagline">Build Beyond Limits</span>
+            </div>
+          </a>
+          <p>The premier interactive platform for hackathon discovery, project showcases, and developer networking.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Directory Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="hackathons.html?tab=upcoming">Upcoming Sprints</a></li>
+            <li><a href="hackathons.html?tab=ongoing">Live Competitions</a></li>
+            <li><a href="hackathons.html?tab=completed">Past Champions & Projects</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Developer Zone</h4>
+          <ul class="footer-links">
+            <li><a href="profile.html">My Profile</a></li>
+            <li><a href="my-registrations.html">My Registered Events</a></li>
+            <li><a href="admin.html">Organizer Portal</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Support & Help</h4>
+          <ul class="footer-links">
+            <li><a href="index.html#faq">Platform FAQs</a></li>
+            <li><a href="mailto:support@codeverse.dev">Contact Support</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2026 CODEVERSE. All rights reserved. GDG MMMUT Prompt 2 Pixel Round 2 (PS 02).</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/avatars.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/hackathons.js"></script>
+</body>
+</html>

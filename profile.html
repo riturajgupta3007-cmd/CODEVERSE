@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Developer Profile & Dashboard | CODEVERSE</title>
+  <meta name="description" content="Manage your CODEVERSE developer profile, view saved hackathons, and update account details." />
+
+  <!-- Google Fonts: Space Grotesk & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/hackathons.css" />
+  <link rel="stylesheet" href="css/auth.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header scrolled" id="siteHeader">
+    <div class="container navbar">
+      <a href="index.html" class="brand-logo" aria-label="CODEVERSE Home">
+        <div class="brand-icon-wrapper">
+          <i data-lucide="cpu" style="width:24px;height:24px;"></i>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">CODEVERSE</span>
+          <span class="brand-tagline">Build Beyond Limits</span>
+        </div>
+      </a>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="hackathons.html" class="nav-link">Hackathons</a></li>
+          <li><a href="my-registrations.html" class="nav-link">My Registrations</a></li>
+          <li><a href="admin.html" class="nav-link">Admin Portal</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <div id="navbar-auth-container"></div>
+        <button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <i data-lucide="menu" style="width:24px;height:24px;"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="profile-page-wrap">
+    <div class="container">
+      <!-- Profile Header Summary Card -->
+      <div class="profile-header-card reveal-on-scroll">
+        <div class="profile-user-summary">
+          <div class="profile-avatar-wrapper">
+            <img id="profileUserAvatar" src="" alt="User Avatar" class="profile-large-avatar" />
+            <button type="button" class="btn-change-avatar" id="btnChangeAvatarTop" title="Change Profile Avatar" aria-label="Change Profile Avatar">
+              <i data-lucide="camera" style="width:16px;height:16px;"></i>
+            </button>
+          </div>
+          <div class="profile-user-details">
+            <h2 id="profileUserName">Developer</h2>
+            <div id="profileUserRole" class="profile-user-role">Full Stack Developer & AI Enthusiast</div>
+            <div id="profileUserCollege" class="profile-user-college">Tech Institute / Campus</div>
+          </div>
+        </div>
+
+        <div class="profile-stats-grid">
+          <div class="profile-stat-box">
+            <div class="stat-num" id="statUserRegistrations">0</div>
+            <div class="stat-lbl">Registrations</div>
+          </div>
+          <div class="profile-stat-box">
+            <div class="stat-num" id="statUserSaved">0</div>
+            <div class="stat-lbl">Saved Events</div>
+          </div>
+          <div class="profile-stat-box">
+            <div class="stat-num" style="color:var(--electric-blue);">Level 3</div>
+            <div class="stat-lbl">Hacker Tier</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <div class="profile-nav-tabs">
+        <button class="profile-tab-btn active" id="tabBtnDetails" data-target="tabContentDetails">
+          <i data-lucide="user-check"></i>
+          <span>Profile Information</span>
+        </button>
+        <button class="profile-tab-btn" id="tabBtnSaved" data-target="tabContentSaved">
+          <i data-lucide="bookmark"></i>
+          <span>Saved Hackathons</span>
+          <span class="count-badge" id="savedCountBadge">0</span>
+        </button>
+      </div>
+
+      <!-- Tab 1: Profile Information Edit Form -->
+      <div class="profile-content-card" id="tabContentDetails">
+        <!-- PROFILE PHOTO DEDICATED SECTION -->
+        <div class="profile-photo-card" id="profilePhotoSection">
+          <div class="photo-section-header">
+            <div>
+              <h3 style="font-size:1.15rem;margin-bottom:4px;display:flex;align-items:center;gap:8px;">
+                <i data-lucide="image" style="width:18px;height:18px;color:var(--electric-blue);"></i>
+                PROFILE PHOTO
+              </h3>
+              <p style="font-size:0.85rem;color:var(--text-muted);">
+                Choose from 16 brand-aligned avatars or upload a custom image from your device.
+              </p>
+            </div>
+            <button type="button" class="btn-primary-sm" id="btnOpenAvatarModal">
+              <i data-lucide="sparkles" style="width:15px;height:15px;"></i>
+              <span>Choose / Upload Avatar</span>
+            </button>
+          </div>
+          
+          <div class="current-photo-preview-box">
+            <img id="profileCurrentPhotoPreview" class="photo-preview-lg" src="" alt="Current Profile Preview" />
+            <div class="photo-meta-info">
+              <div class="photo-status-badge" id="photoStatusBadge">Active Profile Image</div>
+              <p style="font-size:0.82rem;color:var(--text-dim);margin-top:6px;">
+                Displayed on your profile, header navbar, and event registrations.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <form id="profileEditForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Full Name</label>
+              <input type="text" id="profFullName" class="form-input no-icon" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email Address (Read-only)</label>
+              <input type="email" id="profEmail" class="form-input no-icon" readonly style="opacity:0.7;cursor:not-allowed;" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Headline / Role</label>
+              <input type="text" id="profRole" class="form-input no-icon" placeholder="e.g. AI Researcher / Backend Developer" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">College / University / Company</label>
+              <input type="text" id="profCollege" class="form-input no-icon" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Phone Number</label>
+              <input type="text" id="profPhone" class="form-input no-icon" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">GitHub URL</label>
+              <input type="url" id="profGithub" class="form-input no-icon" placeholder="https://github.com/..." />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Bio & Developer Interests</label>
+            <textarea id="profBio" class="form-textarea no-icon" rows="3" placeholder="Tell other hackers what you love to build..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Core Skills (comma separated)</label>
+            <input type="text" id="profSkills" class="form-input no-icon" placeholder="Python, PyTorch, React, Three.js, Docker" />
+          </div>
+
+          <button type="submit" class="btn-primary" style="margin-top:10px;">
+            <i data-lucide="check"></i>
+            <span>Save Profile Updates</span>
+          </button>
+        </form>
+      </div>
+
+      <!-- Tab 2: Saved Hackathons List -->
+      <div class="profile-content-card" id="tabContentSaved" style="display:none;">
+        <div class="hackathons-grid" id="savedHackathonsGrid" style="margin-bottom:0;">
+          <!-- Saved cards rendered by JS -->
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ==========================================================================
+       PROFILE AVATAR SELECTION & DEVICE UPLOAD MODAL
+       ========================================================================== -->
+  <div class="modal-overlay" id="avatarPickerModal">
+    <div class="modal-dialog avatar-modal-dialog">
+      <div class="modal-header">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <i data-lucide="image" style="color:var(--electric-blue);width:20px;height:20px;"></i>
+          <h3 style="font-size:1.2rem;">Choose Profile Photo</h3>
+        </div>
+        <button type="button" class="btn-modal-close" id="btnCloseAvatarModal" aria-label="Close modal">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+
+      <div class="modal-body" style="padding:22px 26px;">
+        <!-- Current Profile Preview Banner -->
+        <div class="avatar-preview-banner">
+          <div class="preview-left">
+            <img id="modalPreviewImg" class="modal-avatar-preview" src="" alt="Selected Preview" />
+            <div class="preview-meta">
+              <h4 id="modalPreviewTitle">Selected Avatar</h4>
+              <p id="modalPreviewSubtitle">Click an avatar below or upload a custom image</p>
+            </div>
+          </div>
+          <span class="photo-status-badge" id="modalStagedBadge">Ready to Save</span>
+        </div>
+
+        <!-- Predefined Avatars Category Filter Pills -->
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+          <span style="font-size:0.85rem;font-weight:700;color:var(--text-white);text-transform:uppercase;letter-spacing:0.04em;">
+            Choose Your Avatar
+          </span>
+          <span style="font-size:0.75rem;color:var(--text-dim);">16 Brand Avatars</span>
+        </div>
+
+        <div class="avatar-filter-row">
+          <button type="button" class="avatar-filter-btn active" data-filter="all">All (16)</button>
+          <button type="button" class="avatar-filter-btn" data-filter="Male">Male (4)</button>
+          <button type="button" class="avatar-filter-btn" data-filter="Female">Female (4)</button>
+          <button type="button" class="avatar-filter-btn" data-filter="Developer">Developer (4)</button>
+          <button type="button" class="avatar-filter-btn" data-filter="Abstract">Abstract (4)</button>
+        </div>
+
+        <!-- Predefined Avatars Grid -->
+        <div class="avatar-grid" id="avatarGridContainer">
+          <!-- Injected dynamically from window.PREDEFINED_AVATARS -->
+        </div>
+
+        <!-- Upload from Device (Option B) -->
+        <div class="upload-device-box">
+          <div class="upload-box-info">
+            <div class="upload-icon-circle">
+              <i data-lucide="upload-cloud" style="width:20px;height:20px;"></i>
+            </div>
+            <div class="upload-text">
+              <h5>Upload from Device</h5>
+              <p>Supports JPG, JPEG, PNG, WEBP • Max 5 MB</p>
+            </div>
+          </div>
+
+          <div class="upload-actions-wrap">
+            <input type="file" id="deviceFileInput" accept="image/jpeg,image/png,image/webp" style="display:none;" />
+            <div id="stagedUploadTag" class="uploaded-file-tag" style="display:none;">
+              <span id="stagedFileName">custom-photo.png</span>
+              <button type="button" class="btn-remove-upload" id="btnRemoveStagedUpload" title="Remove custom upload">
+                <i data-lucide="x" style="width:14px;height:14px;"></i>
+              </button>
+            </div>
+            <button type="button" class="btn-secondary-sm" id="btnTriggerUpload">
+              <i data-lucide="folder-open" style="width:15px;height:15px;"></i>
+              <span>Choose File</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary-sm" id="btnCancelAvatarModal">Cancel</button>
+        <button type="button" class="btn-primary" id="btnSaveAvatarModal">
+          <i data-lucide="check" style="width:16px;height:16px;"></i>
+          <span>Save Changes</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/avatars.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/hackathons.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const user = window.Auth.getCurrentUser();
+      if (!user) {
+        window.showToast("Please log in to view your profile.", "error");
+        setTimeout(() => {
+          window.location.href = "login.html";
+        }, 800);
+        return;
+      }
+
+      // Populate User Header & Previews
+      const currentAvatar = user.avatar || window.DEFAULT_AVATAR;
+      document.getElementById("profileUserName").textContent = user.fullName;
+      document.getElementById("profileUserRole").textContent = user.role || "Developer";
+      document.getElementById("profileUserCollege").textContent = user.college || "University Campus";
+      document.getElementById("profileUserAvatar").src = currentAvatar;
+      document.getElementById("profileCurrentPhotoPreview").src = currentAvatar;
+
+      // Stats
+      const regs = window.MockDB.getRegistrations(user.id);
+      const saved = window.MockDB.getSavedHackathons(user.id);
+      document.getElementById("statUserRegistrations").textContent = regs.length;
+      document.getElementById("statUserSaved").textContent = saved.length;
+      document.getElementById("savedCountBadge").textContent = saved.length;
+
+      // Populate form fields
+      document.getElementById("profFullName").value = user.fullName || "";
+      document.getElementById("profEmail").value = user.email || "";
+      document.getElementById("profRole").value = user.role || "";
+      document.getElementById("profCollege").value = user.college || "";
+      document.getElementById("profPhone").value = user.phone || "";
+      document.getElementById("profGithub").value = user.github || "";
+      document.getElementById("profBio").value = user.bio || "";
+      document.getElementById("profSkills").value = (user.skills || []).join(", ");
+
+      // Handle form submit
+      document.getElementById("profileEditForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const updated = {
+          fullName: document.getElementById("profFullName").value.trim(),
+          role: document.getElementById("profRole").value.trim(),
+          college: document.getElementById("profCollege").value.trim(),
+          phone: document.getElementById("profPhone").value.trim(),
+          github: document.getElementById("profGithub").value.trim(),
+          bio: document.getElementById("profBio").value.trim(),
+          skills: document.getElementById("profSkills").value.split(",").map(s => s.trim()).filter(Boolean)
+        };
+
+        window.Auth.updateProfile(updated);
+        document.getElementById("profileUserName").textContent = updated.fullName;
+        document.getElementById("profileUserRole").textContent = updated.role;
+        document.getElementById("profileUserCollege").textContent = updated.college;
+        window.showToast("Profile updated successfully!", "success");
+      });
+
+      // ==========================================================================
+      // AVATAR SELECTION & DEVICE UPLOAD CONTROLLER
+      // ==========================================================================
+      const avatarModal = document.getElementById("avatarPickerModal");
+      const btnOpenAvatarModal = document.getElementById("btnOpenAvatarModal");
+      const btnChangeAvatarTop = document.getElementById("btnChangeAvatarTop");
+      const btnCloseAvatarModal = document.getElementById("btnCloseAvatarModal");
+      const btnCancelAvatarModal = document.getElementById("btnCancelAvatarModal");
+      const btnSaveAvatarModal = document.getElementById("btnSaveAvatarModal");
+      const avatarGridContainer = document.getElementById("avatarGridContainer");
+      const modalPreviewImg = document.getElementById("modalPreviewImg");
+      const modalPreviewTitle = document.getElementById("modalPreviewTitle");
+      const modalPreviewSubtitle = document.getElementById("modalPreviewSubtitle");
+      const modalStagedBadge = document.getElementById("modalStagedBadge");
+      const deviceFileInput = document.getElementById("deviceFileInput");
+      const btnTriggerUpload = document.getElementById("btnTriggerUpload");
+      const stagedUploadTag = document.getElementById("stagedUploadTag");
+      const stagedFileName = document.getElementById("stagedFileName");
+      const btnRemoveStagedUpload = document.getElementById("btnRemoveStagedUpload");
+      const filterBtns = document.querySelectorAll(".avatar-filter-btn");
+
+      let stagedAvatarUrl = currentAvatar;
+      let stagedSourceType = "predefined"; // "predefined" or "device"
+
+      function openModal() {
+        stagedAvatarUrl = user.avatar || window.DEFAULT_AVATAR;
+        modalPreviewImg.src = stagedAvatarUrl;
+        modalPreviewTitle.textContent = "Current Profile Avatar";
+        modalPreviewSubtitle.textContent = "Click an avatar or upload from device to change";
+        modalStagedBadge.textContent = "Current Image";
+        stagedUploadTag.style.display = "none";
+        deviceFileInput.value = "";
+        renderAvatarGrid("all");
+        avatarModal.classList.add("active");
+        if (window.lucide) window.lucide.createIcons();
+      }
+
+      function closeModal() {
+        avatarModal.classList.remove("active");
+      }
+
+      if (btnOpenAvatarModal) btnOpenAvatarModal.addEventListener("click", openModal);
+      if (btnChangeAvatarTop) btnChangeAvatarTop.addEventListener("click", openModal);
+      if (btnCloseAvatarModal) btnCloseAvatarModal.addEventListener("click", closeModal);
+      if (btnCancelAvatarModal) btnCancelAvatarModal.addEventListener("click", closeModal);
+
+      // Render Avatar Grid with Category Filter
+      function renderAvatarGrid(filterCategory = "all") {
+        const avatars = window.PREDEFINED_AVATARS || [];
+        const filtered = filterCategory === "all" ? avatars : avatars.filter(a => a.category.toLowerCase() === filterCategory.toLowerCase());
+
+        avatarGridContainer.innerHTML = filtered.map(a => {
+          const isSelected = (stagedSourceType === "predefined" && stagedAvatarUrl === a.url);
+          return `
+            <div class="avatar-card-item ${isSelected ? 'selected' : ''}" data-id="${a.id}" data-url="${a.url}" data-name="${a.name}" data-category="${a.category}">
+              <img src="${a.url}" alt="${a.name}" class="avatar-card-img" />
+              <span class="avatar-card-name">${a.name}</span>
+            </div>
+          `;
+        }).join("");
+
+        // Attach Click Listeners
+        avatarGridContainer.querySelectorAll(".avatar-card-item").forEach(card => {
+          card.addEventListener("click", () => {
+            avatarGridContainer.querySelectorAll(".avatar-card-item").forEach(c => c.classList.remove("selected"));
+            card.classList.add("selected");
+
+            const url = card.getAttribute("data-url");
+            const name = card.getAttribute("data-name");
+            const cat = card.getAttribute("data-category");
+
+            stagedAvatarUrl = url;
+            stagedSourceType = "predefined";
+            modalPreviewImg.src = url;
+            modalPreviewTitle.textContent = name;
+            modalPreviewSubtitle.textContent = `Predefined Avatar (${cat})`;
+            modalStagedBadge.textContent = "Ready to Save";
+
+            // Reset any staged upload
+            stagedUploadTag.style.display = "none";
+            deviceFileInput.value = "";
+          });
+        });
+      }
+
+      // Filter Buttons Click
+      filterBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+          filterBtns.forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          const filter = btn.getAttribute("data-filter");
+          renderAvatarGrid(filter);
+        });
+      });
+
+      // Device Upload File Picker Trigger
+      if (btnTriggerUpload && deviceFileInput) {
+        btnTriggerUpload.addEventListener("click", () => {
+          deviceFileInput.click();
+        });
+
+        deviceFileInput.addEventListener("change", (e) => {
+          const file = e.target.files[0];
+          if (!file) return;
+
+          // Validate File Type
+          const validTypes = ["image/jpeg", "image/png", "image/webp"];
+          const isExtensionValid = /\.(jpe?g|png|webp)$/i.test(file.name);
+          if (!validTypes.includes(file.type) && !isExtensionValid) {
+            window.showToast("Unsupported file format. Please upload JPG, PNG, or WEBP.", "error");
+            deviceFileInput.value = "";
+            return;
+          }
+
+          // Validate File Size: Max 5 MB
+          const maxSize = 5 * 1024 * 1024;
+          if (file.size > maxSize) {
+            window.showToast("File size exceeds 5 MB limit. Please select a smaller image.", "error");
+            deviceFileInput.value = "";
+            return;
+          }
+
+          // Read file as Data URL
+          const reader = new FileReader();
+          reader.onload = (event) => {
+            stagedAvatarUrl = event.target.result;
+            stagedSourceType = "device";
+
+            // Update preview
+            modalPreviewImg.src = stagedAvatarUrl;
+            modalPreviewTitle.textContent = "Custom Image Upload";
+            modalPreviewSubtitle.textContent = `${file.name} (${Math.round(file.size / 1024)} KB)`;
+            modalStagedBadge.textContent = "Staged Upload";
+
+            // Show staged tag
+            stagedFileName.textContent = file.name.length > 18 ? file.name.substring(0, 15) + "..." : file.name;
+            stagedUploadTag.style.display = "inline-flex";
+
+            // Deselect predefined avatars
+            avatarGridContainer.querySelectorAll(".avatar-card-item").forEach(c => c.classList.remove("selected"));
+
+            window.showToast("Image ready for preview. Click 'Save Changes' to apply.", "info");
+          };
+          reader.readAsDataURL(file);
+        });
+      }
+
+      // Remove Staged Upload
+      if (btnRemoveStagedUpload) {
+        btnRemoveStagedUpload.addEventListener("click", (e) => {
+          e.stopPropagation();
+          stagedUploadTag.style.display = "none";
+          deviceFileInput.value = "";
+          // Revert to user's saved avatar
+          stagedAvatarUrl = user.avatar || window.DEFAULT_AVATAR;
+          stagedSourceType = "predefined";
+          modalPreviewImg.src = stagedAvatarUrl;
+          modalPreviewTitle.textContent = "Current Profile Avatar";
+          modalPreviewSubtitle.textContent = "Custom upload cancelled";
+          modalStagedBadge.textContent = "Current Image";
+          renderAvatarGrid("all");
+        });
+      }
+
+      // Save Changes
+      if (btnSaveAvatarModal) {
+        btnSaveAvatarModal.addEventListener("click", () => {
+          if (!stagedAvatarUrl) {
+            window.showToast("Please choose an avatar first.", "error");
+            return;
+          }
+
+          // Save to user profile in MockDB & state
+          const updatedUser = window.Auth.updateProfile({ avatar: stagedAvatarUrl });
+          if (updatedUser) {
+            user.avatar = stagedAvatarUrl;
+            document.getElementById("profileUserAvatar").src = stagedAvatarUrl;
+            document.getElementById("profileCurrentPhotoPreview").src = stagedAvatarUrl;
+            closeModal();
+            window.showToast("Profile avatar updated successfully!", "success");
+          } else {
+            window.showToast("Could not update profile photo.", "error");
+          }
+        });
+      }
+
+      // ==========================================================================
+      // TAB SWITCHING & SAVED HACKATHONS
+      // ==========================================================================
+      const tabBtnDetails = document.getElementById("tabBtnDetails");
+      const tabBtnSaved = document.getElementById("tabBtnSaved");
+      const tabContentDetails = document.getElementById("tabContentDetails");
+      const tabContentSaved = document.getElementById("tabContentSaved");
+
+      tabBtnDetails.addEventListener("click", () => {
+        tabBtnDetails.classList.add("active");
+        tabBtnSaved.classList.remove("active");
+        tabContentDetails.style.display = "block";
+        tabContentSaved.style.display = "none";
+      });
+
+      tabBtnSaved.addEventListener("click", () => {
+        tabBtnSaved.classList.add("active");
+        tabBtnDetails.classList.remove("active");
+        tabContentSaved.style.display = "block";
+        tabContentDetails.style.display = "none";
+        renderSavedHackathons();
+      });
+
+      if (window.location.hash === "#saved") {
+        tabBtnSaved.click();
+      }
+
+      function renderSavedHackathons() {
+        const container = document.getElementById("savedHackathonsGrid");
+        const currentSaved = window.MockDB.getSavedHackathons(user.id);
+        const allHackathons = window.HackathonData.getAll();
+
+        const savedItems = allHackathons.filter(h => currentSaved.some(s => s.hackathonId === h.id));
+
+        if (savedItems.length === 0) {
+          container.innerHTML = `
+            <div class="no-results-state">
+              <div class="no-results-icon"><i data-lucide="bookmark"></i></div>
+              <h3>No Saved Hackathons Yet</h3>
+              <p>Explore upcoming hackathons in the directory and click the bookmark icon to save them here.</p>
+              <a href="hackathons.html" class="btn-primary-sm">Browse Hackathons</a>
+            </div>
+          `;
+        } else {
+          container.innerHTML = savedItems.map(renderHackathonCard).join("");
+          attachBookmarkHandlers();
+        }
+        if (window.lucide) window.lucide.createIcons();
+      }
+    });
+  </script>
+</body>
+</html>

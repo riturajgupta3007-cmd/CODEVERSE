@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Management Portal | CODEVERSE</title>
+  <meta name="description" content="CODEVERSE Admin Dashboard for managing hackathons, verifying organizers, monitoring registrations, and curating events." />
+
+  <!-- Google Fonts: Space Grotesk & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/hackathons.css" />
+  <link rel="stylesheet" href="css/auth.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header scrolled" id="siteHeader">
+    <div class="container navbar">
+      <a href="index.html" class="brand-logo" aria-label="CODEVERSE Home">
+        <div class="brand-icon-wrapper">
+          <i data-lucide="shield-check" style="width:24px;height:24px;"></i>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">CODEVERSE</span>
+          <span class="brand-tagline">Admin Operations</span>
+        </div>
+      </a>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Live Platform</a></li>
+          <li><a href="hackathons.html" class="nav-link">Directory</a></li>
+          <li><a href="profile.html" class="nav-link">Developer Profile</a></li>
+          <li><a href="admin.html" class="nav-link active">Admin Portal</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <div id="navbar-auth-container"></div>
+        <button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <i data-lucide="menu" style="width:24px;height:24px;"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="admin-page-wrap">
+    <div class="container">
+      <!-- Admin Top Header Row -->
+      <div class="admin-header-row reveal-on-scroll">
+        <div>
+          <div class="section-tag" style="background:rgba(0, 217, 255, 0.1); border-color:var(--electric-blue); color:var(--electric-blue);">
+            <i data-lucide="shield" style="width:14px;height:14px;"></i>
+            <span>Curator & Organizer Dashboard</span>
+          </div>
+          <h1 style="font-size:2.4rem;margin:4px 0;">Platform Event Management</h1>
+          <p style="font-size:0.95rem;color:var(--text-muted);">
+            Publish new hackathons, manage tracks, update prize allocations, and review participant telemetry.
+          </p>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+          <button class="btn-secondary-sm" id="btnExportJSON" title="Download entire dataset as JSON">
+            <i data-lucide="download"></i>
+            <span>Export JSON</span>
+          </button>
+          <button class="btn-secondary-sm" id="btnResetSeedData" title="Reset dataset back to seed demo hackathons">
+            <i data-lucide="rotate-ccw"></i>
+            <span>Reset Demo Data</span>
+          </button>
+          <button class="btn-primary" id="btnOpenAddHackathon">
+            <i data-lucide="plus-circle"></i>
+            <span>Add New Hackathon</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Admin Stats Grid -->
+      <div class="admin-stats-grid reveal-on-scroll">
+        <div class="admin-stat-card">
+          <div class="admin-stat-icon"><i data-lucide="calendar"></i></div>
+          <div class="admin-stat-info">
+            <h3 id="statTotalHackathons">10</h3>
+            <p>Total Hackathons</p>
+          </div>
+        </div>
+
+        <div class="admin-stat-card">
+          <div class="admin-stat-icon" style="color:var(--status-ongoing);"><i data-lucide="flame"></i></div>
+          <div class="admin-stat-info">
+            <h3 id="statUpcomingHackathons">4</h3>
+            <p>Upcoming Sprints</p>
+          </div>
+        </div>
+
+        <div class="admin-stat-card">
+          <div class="admin-stat-icon"><i data-lucide="users"></i></div>
+          <div class="admin-stat-info">
+            <h3 id="statTotalRegistrations">1</h3>
+            <p>Active Registrations</p>
+          </div>
+        </div>
+
+        <div class="admin-stat-card">
+          <div class="admin-stat-icon" style="color:var(--electric-blue);"><i data-lucide="bookmark"></i></div>
+          <div class="admin-stat-info">
+            <h3 id="statTotalSaved">2</h3>
+            <p>Saved By Hackers</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Admin Data Table Container -->
+      <div class="admin-table-container reveal-on-scroll">
+        <div class="admin-table-header">
+          <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+            <div class="search-input-wrap" style="width:280px;">
+              <i data-lucide="search"></i>
+              <input type="text" id="adminSearchInput" class="search-input" placeholder="Search events..." />
+            </div>
+
+            <select id="adminStatusFilter" class="filter-select" style="width:180px;">
+              <option value="all">All Statuses</option>
+              <option value="upcoming">Upcoming</option>
+              <option value="ongoing">Ongoing</option>
+              <option value="completed">Completed</option>
+            </select>
+          </div>
+
+          <div style="font-size:0.85rem;color:var(--text-dim);">
+            Changes synchronize to persistent storage in real time.
+          </div>
+        </div>
+
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Hackathon</th>
+              <th>Status</th>
+              <th>Category</th>
+              <th>Format</th>
+              <th>Start Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="adminHackathonsTbody">
+            <!-- Table rows populated by js/admin.js -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <!-- Add / Edit Hackathon Modal Dialog -->
+  <div class="modal-overlay" id="hackathonModal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="modalTitle">Add New Hackathon</h3>
+        <button class="btn-modal-close close-modal-btn"><i data-lucide="x"></i></button>
+      </div>
+      <div class="modal-body">
+        <form id="hackathonAdminForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Hackathon Name *</label>
+              <input type="text" id="modalHackathonName" class="form-input no-icon" placeholder="e.g. NextGen Web Hackathon 2026" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Organizer Name *</label>
+              <input type="text" id="modalOrganizer" class="form-input no-icon" placeholder="e.g. Google Developer Group" required />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Category *</label>
+              <select id="modalCategory" class="form-select no-icon" required>
+                <option value="AI & Machine Learning">AI & Machine Learning</option>
+                <option value="Web Development">Web Development</option>
+                <option value="Cybersecurity">Cybersecurity</option>
+                <option value="Blockchain">Blockchain</option>
+                <option value="Cloud Computing">Cloud Computing</option>
+                <option value="App Development">App Development</option>
+                <option value="Open Source">Open Source</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Format *</label>
+              <select id="modalFormat" class="form-select no-icon" required>
+                <option value="Online">Online</option>
+                <option value="Offline">Offline</option>
+                <option value="Hybrid">Hybrid</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Location / Campus Hub</label>
+              <input type="text" id="modalLocation" class="form-input no-icon" placeholder="e.g. Bangalore Tech Hub or Virtual" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Prize Pool *</label>
+              <input type="text" id="modalPrizePool" class="form-input no-icon" placeholder="e.g. ₹15,00,000 ($20,000 USD)" required />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Start Date *</label>
+              <input type="date" id="modalStartDate" class="form-input no-icon" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">End Date *</label>
+              <input type="date" id="modalEndDate" class="form-input no-icon" required />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Registration Deadline *</label>
+              <input type="date" id="modalDeadline" class="form-input no-icon" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Banner Image URL</label>
+              <input type="url" id="modalBannerUrl" class="form-input no-icon" placeholder="https://images.unsplash.com/..." />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Short Summary (1-2 sentences) *</label>
+            <input type="text" id="modalShortDesc" class="form-input no-icon" placeholder="Brief elevator pitch of the hackathon" required />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Full Description</label>
+            <textarea id="modalFullDesc" class="form-textarea no-icon" rows="4" placeholder="Detailed mission, objectives, guidelines, and target participants..."></textarea>
+          </div>
+
+          <div class="form-row" style="margin-bottom:10px;">
+            <label class="checkbox-label">
+              <input type="checkbox" id="modalFeatured" checked />
+              <span>Feature on platform discovery hero</span>
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" id="modalExternal" />
+              <span>External event (routes to official URL)</span>
+            </label>
+          </div>
+
+          <div class="modal-footer" style="padding:14px 0 0 0; border-top:none;">
+            <button type="button" class="btn-secondary close-modal-btn">Cancel</button>
+            <button type="submit" class="btn-primary">
+              <i data-lucide="save"></i>
+              <span>Save & Publish</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/data.js"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

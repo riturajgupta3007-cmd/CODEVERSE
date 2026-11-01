@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Hackathon Registrations | CODEVERSE</title>
+  <meta name="description" content="View and manage all your confirmed hackathon registrations and digital tickets on CODEVERSE." />
+
+  <!-- Google Fonts: Space Grotesk & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/auth.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header scrolled" id="siteHeader">
+    <div class="container navbar">
+      <a href="index.html" class="brand-logo" aria-label="CODEVERSE Home">
+        <div class="brand-icon-wrapper">
+          <i data-lucide="cpu" style="width:24px;height:24px;"></i>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">CODEVERSE</span>
+          <span class="brand-tagline">Build Beyond Limits</span>
+        </div>
+      </a>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="hackathons.html" class="nav-link">Hackathons</a></li>
+          <li><a href="profile.html" class="nav-link">My Profile</a></li>
+          <li><a href="admin.html" class="nav-link">Admin Portal</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <div id="navbar-auth-container"></div>
+        <button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <i data-lucide="menu" style="width:24px;height:24px;"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="profile-page-wrap">
+    <div class="container">
+      <div class="section-header reveal-on-scroll" style="text-align:left;margin-bottom:30px;">
+        <div class="section-tag">
+          <i data-lucide="ticket" style="width:14px;height:14px;"></i>
+          <span>Verified Participation Passes</span>
+        </div>
+        <h1 style="font-size:2.5rem;margin-bottom:8px;">My Registrations</h1>
+        <p style="font-size:1rem;color:var(--text-muted);">
+          Track all hackathons you are registered for. Access your unique Registration ID and digital passes.
+        </p>
+      </div>
+
+      <div class="registration-cards-list" id="myRegistrationsList">
+        <!-- Rendered via JS -->
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal Container for Pass View -->
+  <div class="ticket-modal-overlay" id="ticketModalOverlay">
+    <div class="ticket-pass" id="modalTicketPass">
+      <!-- Injected by JS -->
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/data.js"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const user = window.Auth.getCurrentUser();
+      const container = document.getElementById("myRegistrationsList");
+
+      if (!user) {
+        window.showToast("Please log in to view your registrations.", "error");
+        setTimeout(() => {
+          window.location.href = "login.html";
+        }, 800);
+        return;
+      }
+
+      const regs = window.MockDB.getRegistrations(user.id);
+
+      if (regs.length === 0) {
+        container.innerHTML = `
+          <div class="no-results-state">
+            <div class="no-results-icon"><i data-lucide="calendar-x"></i></div>
+            <h3>No Active Registrations Found</h3>
+            <p>You haven't registered for any hackathons yet. Check out the upcoming events in the directory!</p>
+            <a href="hackathons.html" class="btn-primary-sm">Explore Upcoming Hackathons</a>
+          </div>
+        `;
+      } else {
+        container.innerHTML = regs.map(r => `
+          <div class="registration-card reveal-on-scroll">
+            <div class="reg-card-info">
+              <img src="${r.hackathonBanner || 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=400&q=80'}" alt="${r.hackathonName}" class="reg-hackathon-thumb" />
+              <div class="reg-title-box">
+                <span class="reg-code">${r.id}</span>
+                <h3>${r.hackathonName}</h3>
+                <div class="reg-meta">
+                  <span>Team: <strong>${r.teamName}</strong> (${r.teamSize} Members)</span> • 
+                  <span>Track: <strong>${r.track}</strong></span> • 
+                  <span>Registered: ${new Date(r.createdAt).toLocaleDateString()}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="reg-card-actions">
+              <button class="btn-primary-sm" onclick="viewTicket('${r.id}')">
+                <i data-lucide="qr-code"></i>
+                <span>View Event Pass</span>
+              </button>
+              <a href="hackathon-details.html?id=${r.hackathonSlug || 'codeverse-genesis-2026'}" class="btn-secondary-sm">
+                <span>View Hackathon</span>
+              </a>
+            </div>
+          </div>
+        `).join("");
+      }
+
+      if (window.lucide) window.lucide.createIcons();
+    });
+
+    function viewTicket(regId) {
+      const all = window.MockDB.getRegistrations();
+      const reg = all.find(r => r.id === regId);
+      if (!reg) return;
+
+      const overlay = document.getElementById("ticketModalOverlay");
+      const pass = document.getElementById("modalTicketPass");
+
+      pass.innerHTML = `
+        <div class="ticket-header">
+          <span class="ticket-brand">CODEVERSE // ENTRY PASS</span>
+          <span class="ticket-badge">CONFIRMED</span>
+        </div>
+        <div class="ticket-body">
+          <h2 class="ticket-event-name">${reg.hackathonName}</h2>
+          
+          <div class="ticket-grid">
+            <div class="ticket-field">
+              <span class="ticket-lbl">Registration Pass ID</span>
+              <span class="ticket-val" style="color:var(--electric-blue); font-family:monospace; font-size:1.15rem;">${reg.id}</span>
+            </div>
+            <div class="ticket-field">
+              <span class="ticket-lbl">Attendee Name</span>
+              <span class="ticket-val">${reg.fullName}</span>
+            </div>
+            <div class="ticket-field">
+              <span class="ticket-lbl">Team Name</span>
+              <span class="ticket-val">${reg.teamName} (${reg.teamSize} Hackers)</span>
+            </div>
+            <div class="ticket-field">
+              <span class="ticket-lbl">Challenge Track</span>
+              <span class="ticket-val">${reg.track}</span>
+            </div>
+            <div class="ticket-field">
+              <span class="ticket-lbl">College / Organization</span>
+              <span class="ticket-val">${reg.college}</span>
+            </div>
+            <div class="ticket-field">
+              <span class="ticket-lbl">Issue Date</span>
+              <span class="ticket-val">${new Date(reg.createdAt).toLocaleDateString()}</span>
+            </div>
+          </div>
+
+          <div class="ticket-barcode-wrap">
+            <span class="ticket-barcode">||| | || |||| | | ||||| ||</span>
+            <span style="font-size:0.75rem; color:var(--text-dim);">CODEVERSE SECURE TOKEN</span>
+          </div>
+        </div>
+
+        <div class="ticket-footer-actions">
+          <button class="btn-primary-sm" onclick="window.print()">
+            <i data-lucide="printer"></i>
+            <span>Print Pass</span>
+          </button>
+          <button class="btn-secondary-sm" onclick="document.getElementById('ticketModalOverlay').classList.remove('active')">
+            <span>Close</span>
+          </button>
+        </div>
+      `;
+
+      overlay.classList.add("active");
+      if (window.lucide) window.lucide.createIcons();
+    }
+    window.viewTicket = viewTicket;
+  </script>
+</body>
+</html>

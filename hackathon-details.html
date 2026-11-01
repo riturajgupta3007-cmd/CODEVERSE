@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hackathon Details | CODEVERSE</title>
+  <meta name="description" content="View complete hackathon information, tracks, schedule, prizes, eligibility, and register on CODEVERSE." />
+
+  <!-- Google Fonts: Space Grotesk & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/hackathons.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body>
+
+  <!-- ==========================================================================
+       NAVIGATION BAR
+       ========================================================================== -->
+  <header class="site-header scrolled" id="siteHeader">
+    <div class="container navbar">
+      <a href="index.html" class="brand-logo" aria-label="CODEVERSE Home">
+        <div class="brand-icon-wrapper">
+          <i data-lucide="cpu" style="width:24px;height:24px;"></i>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">CODEVERSE</span>
+          <span class="brand-tagline">Build Beyond Limits</span>
+        </div>
+      </a>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="hackathons.html" class="nav-link active">Hackathons</a></li>
+          <li><a href="index.html#about" class="nav-link">About</a></li>
+          <li><a href="index.html#how-it-works" class="nav-link">How It Works</a></li>
+          <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="hackathons.html" class="nav-hackathons-cta">
+          <i data-lucide="arrow-left" style="width:16px;height:16px;"></i>
+          <span>Back to Directory</span>
+        </a>
+
+        <!-- Dynamic Auth Container -->
+        <div id="navbar-auth-container" style="display:flex;align-items:center;gap:12px;">
+          <a href="login.html" class="btn-text">Log In</a>
+          <a href="signup.html" class="btn-primary-sm">Sign Up</a>
+        </div>
+
+        <button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <i data-lucide="menu" style="width:24px;height:24px;"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer Menu -->
+    <div class="mobile-nav-menu" id="mobileNavMenu">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="hackathons.html" class="nav-link active">Hackathons Directory</a>
+      <a href="index.html#about" class="nav-link">About Platform</a>
+      <a href="index.html#how-it-works" class="nav-link">How It Works</a>
+      <a href="index.html#contact" class="nav-link">Contact</a>
+    </div>
+  </header>
+
+  <main id="detailsMainContent">
+    <div class="container details-page-header">
+      <!-- Breadcrumb Navigation -->
+      <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <i data-lucide="chevron-right" style="width:14px;height:14px;"></i>
+        <a href="hackathons.html">Hackathons</a>
+        <i data-lucide="chevron-right" style="width:14px;height:14px;"></i>
+        <span id="breadcrumbCurrent" style="color:var(--text-white); font-weight:600;">Event Details</span>
+      </nav>
+
+      <!-- Hero Banner Card -->
+      <div class="details-hero-card">
+        <img id="detailsHeroBanner" src="" alt="Hackathon Banner" class="details-banner-img" />
+        <div class="details-hero-overlay">
+          <div class="details-hero-info">
+            <div class="details-title-box">
+              <div class="details-badges-row">
+                <span id="detailsStatusBadge" class="status-badge upcoming">UPCOMING</span>
+                <span id="detailsCategoryBadge" class="section-tag" style="margin-bottom:0; background:rgba(0,0,0,0.5);">Category</span>
+              </div>
+              <h1 id="detailsTitle" class="details-title">Loading Hackathon...</h1>
+              <div class="details-organizer-row">
+                Organized by <span id="detailsOrganizer">...</span>
+              </div>
+            </div>
+
+            <!-- Hero Action Buttons -->
+            <div class="details-hero-actions">
+              <button class="btn-secondary" id="btnShareAction" title="Share Hackathon">
+                <i data-lucide="share-2" style="width:16px;height:16px;"></i>
+                <span>Share</span>
+              </button>
+              <button class="btn-secondary" id="btnBookmarkAction" title="Bookmark Hackathon">
+                <i data-lucide="bookmark" style="width:16px;height:16px;"></i>
+                <span>Save</span>
+              </button>
+              <a href="register-event.html" class="btn-primary" id="btnRegisterAction">
+                <span>Register Now</span>
+                <i data-lucide="arrow-right" style="width:16px;height:16px;"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Details Layout (Content + Sticky Sidebar) -->
+      <div class="details-layout-grid">
+        <!-- Left Column: Detailed Sections -->
+        <div class="details-content-column">
+          <!-- Overview & About -->
+          <section class="details-section-box">
+            <h3><i data-lucide="info"></i> About the Event</h3>
+            <p id="detailsOverviewText" class="details-content-text">
+              Loading event description and objectives...
+            </p>
+          </section>
+
+          <!-- Themes / Tracks -->
+          <section class="details-section-box">
+            <h3><i data-lucide="layers"></i> Themes & Tracks</h3>
+            <div class="detail-tracks-list" id="detailsTracksList">
+              <!-- Tracks rendered dynamically -->
+            </div>
+          </section>
+
+          <!-- Prizes & Rewards -->
+          <section class="details-section-box">
+            <h3><i data-lucide="trophy"></i> Prizes & Rewards Breakdown</h3>
+            <div class="detail-prizes-list" id="detailsPrizesList">
+              <!-- Prizes rendered dynamically -->
+            </div>
+          </section>
+
+          <!-- Schedule Timeline -->
+          <section class="details-section-box">
+            <h3><i data-lucide="clock"></i> Detailed Event Schedule</h3>
+            <div class="timeline-container" id="detailsScheduleList" style="padding-top:0;">
+              <!-- Timeline items rendered dynamically -->
+            </div>
+          </section>
+
+          <!-- Winners Section (Displayed only if completed) -->
+          <section class="details-section-box winners-showcase-box" id="detailsWinnersSection" style="display:none;">
+            <h3 style="color:#FBBF24;"><i data-lucide="award"></i> Official Winners & Project Showcase</h3>
+            <p style="font-size:0.92rem;color:var(--text-muted);margin-bottom:16px;">
+              Congratulations to the champions of this hackathon! Explore the winning teams and their verified project artifacts below.
+            </p>
+            <div id="detailsWinnersList"></div>
+          </section>
+
+          <!-- Organizers & Sponsors -->
+          <section class="details-section-box">
+            <h3><i data-lucide="shield"></i> Organizers & Sponsors</h3>
+            <div class="sponsors-grid" id="detailsSponsorsList" style="grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));">
+              <!-- Sponsors rendered dynamically -->
+            </div>
+          </section>
+        </div>
+
+        <!-- Right Column: Quick Facts Sticky Sidebar -->
+        <aside class="details-sidebar-column">
+          <div class="details-sidebar-card">
+            <h3 class="sidebar-heading">Important Details</h3>
+            <ul class="sidebar-facts-list">
+              <li class="fact-item">
+                <div class="fact-icon-wrap"><i data-lucide="map-pin"></i></div>
+                <div class="fact-info">
+                  <span class="fact-label">Event Format</span>
+                  <span class="fact-value" id="sidebarFormat">...</span>
+                </div>
+              </li>
+
+              <li class="fact-item">
+                <div class="fact-icon-wrap"><i data-lucide="globe"></i></div>
+                <div class="fact-info">
+                  <span class="fact-label">Location / Hub</span>
+                  <span class="fact-value" id="sidebarLocation">...</span>
+                </div>
+              </li>
+
+              <li class="fact-item">
+                <div class="fact-icon-wrap"><i data-lucide="calendar"></i></div>
+                <div class="fact-info">
+                  <span class="fact-label">Event Dates</span>
+                  <span class="fact-value" id="sidebarDates">...</span>
+                </div>
+              </li>
+
+              <li class="fact-item">
+                <div class="fact-icon-wrap"><i data-lucide="alert-circle"></i></div>
+                <div class="fact-info">
+                  <span class="fact-label">Registration Deadline</span>
+                  <span class="fact-value" id="sidebarDeadline" style="color:var(--electric-blue);">...</span>
+                </div>
+              </li>
+
+              <li class="fact-item">
+                <div class="fact-icon-wrap"><i data-lucide="users"></i></div>
+                <div class="fact-info">
+                  <span class="fact-label">Team Size</span>
+                  <span class="fact-value" id="sidebarTeamSize">...</span>
+                </div>
+              </li>
+
+              <li class="fact-item">
+                <div class="fact-icon-wrap"><i data-lucide="badge-check"></i></div>
+                <div class="fact-info">
+                  <span class="fact-label">Eligibility</span>
+                  <span class="fact-value" id="sidebarEligibility">...</span>
+                </div>
+              </li>
+
+              <li class="fact-item">
+                <div class="fact-icon-wrap"><i data-lucide="gift"></i></div>
+                <div class="fact-info">
+                  <span class="fact-label">Total Prize Pool</span>
+                  <span class="fact-value" id="sidebarPrizePool" style="color:var(--electric-blue);">...</span>
+                </div>
+              </li>
+
+              <li class="fact-item">
+                <div class="fact-icon-wrap"><i data-lucide="mail"></i></div>
+                <div class="fact-info">
+                  <span class="fact-label">Support Email</span>
+                  <span class="fact-value" id="sidebarEmail">...</span>
+                </div>
+              </li>
+            </ul>
+
+            <a href="hackathons.html" class="btn-secondary sidebar-cta-btn">
+              <i data-lucide="arrow-left"></i>
+              <span>Back to Hackathons</span>
+            </a>
+          </div>
+        </aside>
+      </div>
+
+      <!-- Related Hackathons Section -->
+      <section class="related-hackathons-section">
+        <h3>Related Hackathons You Might Like</h3>
+        <div class="hackathons-grid" id="relatedHackathonsGrid">
+          <!-- Related cards injected via JS -->
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="brand-logo">
+            <div class="brand-icon-wrapper">
+              <i data-lucide="cpu" style="width:24px;height:24px;"></i>
+            </div>
+            <div class="brand-text">
+              <span class="brand-name">CODEVERSE</span>
+              <span class="brand-tagline">Build Beyond Limits</span>
+            </div>
+          </a>
+          <p>The premier interactive platform for hackathon discovery, project showcases, and developer networking.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="hackathons.html">Hackathons Directory</a></li>
+            <li><a href="index.html#faq">Platform FAQs</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Portal Links</h4>
+          <ul class="footer-links">
+            <li><a href="profile.html">Developer Profile</a></li>
+            <li><a href="my-registrations.html">My Registrations</a></li>
+            <li><a href="admin.html">Admin Management</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Contact & Verification</h4>
+          <ul class="footer-links">
+            <li><span style="font-size:0.85rem;color:var(--text-muted);">Verified GDG MMMUT Round 2 PS 02 Entry</span></li>
+            <li><span style="font-size:0.85rem;color:var(--text-muted);">team@codeverse.dev</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2026 CODEVERSE. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/data.js"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/hackathons.js"></script>
+  <script src="js/hackathon-details.js"></script>
+</body>
+</html>
